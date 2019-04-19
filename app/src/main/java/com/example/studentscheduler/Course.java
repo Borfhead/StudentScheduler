@@ -1,6 +1,5 @@
 package com.example.studentscheduler;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 enum Status{
@@ -10,9 +9,8 @@ enum Status{
 public class Course {
 
     private String title;
-
-    private LocalDate start;
-    private LocalDate end;
+    private String start;
+    private String end;
     public Status status;
     private String mentorName;
     private String mentorPhone;
@@ -21,8 +19,8 @@ public class Course {
     private ArrayList<Assessment> assessments;
 
 
-    public Course(String title, LocalDate start, LocalDate end, Status status,
-    String mentorName, String mentorPhone, String mentorEmail, ArrayList<String> notes, ArrayList<Assessment> assessments){
+    public Course(String title, String start, String end, Status status,
+                  String mentorName, String mentorPhone, String mentorEmail, ArrayList<String> notes, ArrayList<Assessment> assessments){
         this.title = title;
         this.start = start;
         this.end = end;
@@ -39,11 +37,11 @@ public class Course {
         return title;
     }
 
-    public LocalDate getStart() {
+    public String getStart() {
         return start;
     }
 
-    public LocalDate getEnd() {
+    public String getEnd() {
         return end;
     }
 
@@ -75,11 +73,11 @@ public class Course {
         this.title = title;
     }
 
-    public void setStart(LocalDate start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
-    public void setEnd(LocalDate end) {
+    public void setEnd(String end) {
         this.end = end;
     }
 

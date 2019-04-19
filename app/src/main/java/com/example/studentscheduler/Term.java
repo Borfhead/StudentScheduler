@@ -1,16 +1,16 @@
 package com.example.studentscheduler;
 
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 
 public class Term {
 
     private String title;
-    private LocalDate start;
-    private LocalDate end;
+    private String start;
+    private String end;
     private ArrayList<Course> courses;
 
-    public Term(String title, LocalDate start, LocalDate end, ArrayList<Course> courses) {
+    public Term(String title, String start, String end, ArrayList<Course> courses) {
         this.title = title;
         this.start = start;
         this.end = end;
@@ -25,19 +25,19 @@ public class Term {
         this.title = title;
     }
 
-    public LocalDate getStart() {
+    public String getStart() {
         return start;
     }
 
-    public void setStart(LocalDate start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
-    public LocalDate getEnd() {
+    public String getEnd() {
         return end;
     }
 
-    public void setEnd(LocalDate end) {
+    public void setEnd(String end) {
         this.end = end;
     }
 

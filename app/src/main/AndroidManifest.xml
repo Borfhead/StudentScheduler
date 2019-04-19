@@ -16,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:authorities="com.example.studentscheduler.dbprovider"
+            android:name=".DBProvider"
+            android:exported="false" />
     </application>
 
 </manifest>
