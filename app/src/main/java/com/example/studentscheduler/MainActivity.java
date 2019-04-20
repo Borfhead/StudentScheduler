@@ -1,34 +1,42 @@
 package com.example.studentscheduler;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+
+import com.facebook.stetho.Stetho;
 
 import java.time.LocalDate;
 
+
 public class MainActivity extends AppCompatActivity {
+
+    private static final int ADD_TERM_CODE = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TabLayout test = findViewById(R.id.tabLayout);
-        test.removeAllTabs();
-        test.addTab(test.newTab().setText("Test 1"));
-        test.addTab(test.newTab().setText("Test 2"));
 
+        //For debugging
+        Stetho.initializeWithDefaults(this);
+    }
 
-
-//        ContentValues values = new ContentValues();
-//        values.put(DBOpener.TERM_TITLE, "New Term");
-//        values.put(DBOpener.TERM_START, "04/01/2019");
-//        values.put(DBOpener.TERM_END, "05/01/2019");
-//        Uri uri = getContentResolver().insert(DBProvider.TERM_URI, values);
+    public void addTerm(View view) {
+        Intent intent = new Intent(this, AddTermActivity.class);
+        startActivityForResult(intent, ADD_TERM_CODE);
     }
 }

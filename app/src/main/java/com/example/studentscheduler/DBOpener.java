@@ -43,7 +43,7 @@ public class DBOpener extends SQLiteOpenHelper {
     public static final String ASSESSMENT_TITLE = "title";
     public static final String ASSESSMENT_DUE_DATE = "due_date";
     public static final String ASSESSMENT_TYPE = "type";
-    public static final String ASSESSMENT_COURSE_ID = "course_id";
+public static final String ASSESSMENT_COURSE_ID = "course_id";
     public static final String[] ASSESSMENT_COLUMNS = {ASSESSMENT_ID,
             ASSESSMENT_TITLE, ASSESSMENT_DUE_DATE, ASSESSMENT_TYPE, ASSESSMENT_COURSE_ID};
 

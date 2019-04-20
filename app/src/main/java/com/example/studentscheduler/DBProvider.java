@@ -57,8 +57,41 @@ public class DBProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[]
             selectionArgs, String sortOrder) {
-        return database.query(DBOpener.TERM_TABLE, DBOpener.ASSESSMENT_COLUMNS, selection,
-                null, null, null, DBOpener.ASSESSMENT_COURSE_ID + " ASC");
+        Cursor toReturn = null;
+        switch(uriMatcher.match(uri)){
+            case ASSESSMENT:
+                toReturn = database.query(DBOpener.ASSESSMENT_TABLE, DBOpener.ASSESSMENT_COLUMNS, selection,
+                        null, null, null, DBOpener.ASSESSMENT_ID + " " + sortOrder);
+                break;
+            case ASSESSMENT_ID:
+                toReturn = database.query(DBOpener.ASSESSMENT_TABLE, DBOpener.ASSESSMENT_COLUMNS, selection,
+                        null, null, null, DBOpener.ASSESSMENT_ID + " " + sortOrder);
+                break;
+            case COURSE:
+                toReturn = database.query(DBOpener.COURSE_TABLE, DBOpener.COURSE_COLUMNS, selection,
+                        null, null, null, DBOpener.COURSE_ID + " " + sortOrder);
+                break;
+            case COURSE_ID:
+                toReturn = database.query(DBOpener.COURSE_TABLE, DBOpener.COURSE_COLUMNS, selection,
+                        null, null, null, DBOpener.COURSE_ID + " " + sortOrder);
+                break;
+            case NOTE:
+                toReturn = database.query(DBOpener.NOTE_TABLE, DBOpener.NOTE_COLUMNS, selection,
+                        null, null, null, DBOpener.NOTE_ID + " " + sortOrder);
+                break;
+            case NOTE_ID:
+                toReturn = database.query(DBOpener.NOTE_TABLE, DBOpener.NOTE_COLUMNS, selection,
+                        null, null, null, DBOpener.NOTE_ID + " " + sortOrder);
+                break;
+            case TERM:
+                toReturn = database.query(DBOpener.TERM_TABLE, DBOpener.TERM_COLUMNS, selection,
+                        null, null, null, DBOpener.TERM_ID + " " + sortOrder);
+                break;
+            case TERM_ID:
+                toReturn = database.query(DBOpener.TERM_TABLE, DBOpener.TERM_COLUMNS, selection,
+                        null, null, null, DBOpener.TERM_ID + " " + sortOrder);
+        }
+        return toReturn;
     }
 
 
@@ -70,17 +103,53 @@ public class DBProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        long id = database.insert(DBOpener.TERM_TABLE, null, values);
-        return Uri.parse(TERM_PATH + "/" +id);
+        long id;
+        Uri toReturn = null;
+        switch(uriMatcher.match(uri)){
+            case ASSESSMENT:
+                id = database.insert(DBOpener.ASSESSMENT_TABLE, null, values);
+                return Uri.parse(ASSESSMENT_PATH + "/" +id);
+            case COURSE:
+                id = database.insert(DBOpener.COURSE_TABLE, null, values);
+                return Uri.parse(COURSE_PATH + "/" +id);
+            case NOTE:
+                id = database.insert(DBOpener.NOTE_TABLE, null, values);
+                return Uri.parse(NOTE_PATH + "/" +id);
+            case TERM:
+                id = database.insert(DBOpener.TERM_TABLE, null, values);
+                return Uri.parse(TERM_PATH + "/" +id);
+        }
+        return toReturn;
     }
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        return database.delete(DBOpener.TERM_TABLE, selection, selectionArgs);
+
+        switch(uriMatcher.match(uri)){
+            case ASSESSMENT:
+                return database.delete(DBOpener.ASSESSMENT_TABLE, selection, selectionArgs);
+            case COURSE:
+                return database.delete(DBOpener.COURSE_TABLE, selection, selectionArgs);
+            case NOTE:
+                return database.delete(DBOpener.NOTE_TABLE, selection, selectionArgs);
+            case TERM:
+                return database.delete(DBOpener.TERM_TABLE, selection, selectionArgs);
+        }
+        return 0;
     }
 
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        return database.update(DBOpener.TERM_TABLE, values, selection, selectionArgs);
+        switch(uriMatcher.match(uri)){
+            case ASSESSMENT:
+                return database.update(DBOpener.ASSESSMENT_TABLE, values, selection, selectionArgs);
+            case COURSE:
+                return database.update(DBOpener.COURSE_TABLE, values, selection, selectionArgs);
+            case NOTE:
+                return database.update(DBOpener.NOTE_TABLE, values, selection, selectionArgs);
+            case TERM:
+                return database.update(DBOpener.TERM_TABLE, values, selection, selectionArgs);
+        }
+        return 0;
     }
 }

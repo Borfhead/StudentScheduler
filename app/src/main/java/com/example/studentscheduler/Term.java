@@ -8,13 +8,17 @@ public class Term {
     private String title;
     private String start;
     private String end;
-    private ArrayList<Course> courses;
 
-    public Term(String title, String start, String end, ArrayList<Course> courses) {
+    public Term(){
+        title = "";
+        start = "";
+        end = "";
+    }
+
+    public Term(String title, String start, String end) {
         this.title = title;
         this.start = start;
         this.end = end;
-        this.courses = courses;
     }
 
     public String getTitle() {
@@ -39,18 +43,6 @@ public class Term {
 
     public void setEnd(String end) {
         this.end = end;
-    }
-
-    public ArrayList<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(ArrayList<Course> courses) {
-        this.courses = courses;
-    }
-
-    public void addCourse(Course toAdd){
-        courses.add(toAdd);
     }
 
 }
