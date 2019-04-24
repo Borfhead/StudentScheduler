@@ -28,6 +28,7 @@ public class AddCourseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_course);
+        setTitle("Add Course");
 
         titleField = findViewById(R.id.titleField);
         startField = findViewById(R.id.startField);
@@ -93,8 +94,7 @@ public class AddCourseActivity extends AppCompatActivity {
         String mentorName = mentorNameField.getText().toString();
         String mentorPhone = mentorPhoneField.getText().toString();
         String mentorEmail = mentorEmailField.getText().toString();
-        //CHANGE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        long id = 0;
+        long id = getIntent().getLongExtra("TERM_ID", 0);
         switch (statusSpinner.getSelectedItemPosition()){
             case 0:
                 courseStatus = Status.PLAN_TO_TAKE;

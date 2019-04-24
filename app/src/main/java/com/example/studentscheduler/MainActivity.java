@@ -12,10 +12,10 @@ import com.facebook.stetho.Stetho;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int ADD_TERM_CODE = 1001;
-    private static final int ADD_COURSE_CODE = 1002;
-    private static final int ADD_ASSESSMENT_CODE = 1003;
-    private static final int ADD_NOTE_CODE = 1004;
+    public static final int ADD_TERM_CODE = 1001;
+    public static final int ADD_COURSE_CODE = 1002;
+    public static final int ADD_ASSESSMENT_CODE = 1003;
+    public static final int ADD_NOTE_CODE = 1004;
     private ViewPager pager;
     TermCollectionPagerAdapter adapter;
 

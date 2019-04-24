@@ -36,6 +36,31 @@ public class DBDriver {
         return context.getContentResolver().insert(DBProvider.COURSE_URI, values);
     }
 
+    public static ArrayList<Course> getCoursesByTerm(Context context, long termId){
+        ArrayList<Course> toReturn = new ArrayList();
+        Cursor cursor;
+        cursor = context.getContentResolver().query(DBProvider.COURSE_URI, DBOpener.COURSE_COLUMNS,
+                DBOpener.COURSE_TERM_ID + " = " +termId, null, "ASC");
+        try {
+            while (cursor.moveToNext()) {
+                String title = cursor.getString(cursor.getColumnIndex(DBOpener.COURSE_TITLE));
+                String start = cursor.getString(cursor.getColumnIndex(DBOpener.COURSE_START));
+                String end = cursor.getString(cursor.getColumnIndex(DBOpener.COURSE_END));
+                long courseId = cursor.getInt(cursor.getColumnIndex(DBOpener.COURSE_ID));
+                String statusString = cursor.getString(cursor.getColumnIndex(DBOpener.COURSE_STATUS));
+                String mentorName = cursor.getString(cursor.getColumnIndex(DBOpener.COURSE_MENTOR_NAME));
+                String mentorEmail = cursor.getString(cursor.getColumnIndex(DBOpener.COURSE_MENTOR_EMAIL));
+                String mentorPhone = cursor.getString(cursor.getColumnIndex(DBOpener.COURSE_MENTOR_PHONE));
+                Course toAdd = new Course(title, start, end, statusString, mentorName, mentorPhone, mentorEmail);
+                toReturn.add(toAdd);
+            }
+        }
+        finally{
+            cursor.close();
+        }
+        return toReturn;
+    }
+
     public static Uri insertNote(Context context, String text, long courseId){
 
         ContentValues values = new ContentValues();

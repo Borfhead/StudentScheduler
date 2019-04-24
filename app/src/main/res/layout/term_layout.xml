@@ -10,11 +10,13 @@
         android:id="@+id/endField2"
         android:layout_width="100dp"
         android:layout_height="26dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="End Date: "
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/startField"
-        app:layout_constraintTop_toBottomOf="@+id/titleField" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startField2" />
 
     <TextView
         android:id="@+id/startField2"
@@ -35,7 +37,7 @@
         android:layout_marginTop="8dp"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/endField2"
-        app:layout_constraintTop_toBottomOf="@+id/titleField" />
+        app:layout_constraintTop_toBottomOf="@+id/startField" />
 
     <TextView
         android:id="@+id/titleField"
@@ -63,25 +65,27 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="Edit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/endField" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/endField2" />
 
     <ListView
         android:id="@+id/courseListView"
-        android:layout_width="395dp"
-        android:layout_height="563dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/editBtn"
+        app:layout_constraintVertical_bias="0.789" />
+
 </android.support.constraint.ConstraintLayout>
