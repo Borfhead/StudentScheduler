@@ -85,7 +85,7 @@ public class DBProvider extends ContentProvider {
                 break;
             case TERM:
                 toReturn = database.query(DBOpener.TERM_TABLE, DBOpener.TERM_COLUMNS, selection,
-                        null, null, null, DBOpener.TERM_ID + " " + sortOrder);
+                        null, null, null, DBOpener.TERM_START + " " + sortOrder);
                 break;
             case TERM_ID:
                 toReturn = database.query(DBOpener.TERM_TABLE, DBOpener.TERM_COLUMNS, selection,

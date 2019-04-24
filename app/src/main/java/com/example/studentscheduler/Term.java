@@ -8,6 +8,7 @@ public class Term {
     private String title;
     private String start;
     private String end;
+    private  long id;
 
     public Term(){
         title = "";
@@ -15,10 +16,11 @@ public class Term {
         end = "";
     }
 
-    public Term(String title, String start, String end) {
+    public Term(String title, String start, String end, long id) {
         this.title = title;
         this.start = start;
         this.end = end;
+        this.id = id;
     }
 
     public String getTitle() {
@@ -45,4 +47,11 @@ public class Term {
         this.end = end;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }

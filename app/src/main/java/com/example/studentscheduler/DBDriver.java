@@ -5,7 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
+import java.util.ArrayList;
+
 public class DBDriver {
+
+    public static ArrayList<Term> allTerms = new ArrayList();
 
     public static Uri insertAssessment(Context context, String title, String dueDate,
                                        AssessmentType type, long courseId){
@@ -58,9 +62,30 @@ public class DBDriver {
             String title = cursor.getString(cursor.getColumnIndex(DBOpener.TERM_TITLE));
             String start = cursor.getString(cursor.getColumnIndex(DBOpener.TERM_START));
             String end = cursor.getString(cursor.getColumnIndex(DBOpener.TERM_END));
-            toReturn = new Term(title, start, end);
+            toReturn = new Term(title, start, end, id);
         }
         return toReturn;
+    }
+
+    public static void populateAllTermsList(Context context){
+        allTerms.clear();
+        Cursor cursor;
+        cursor = context.getContentResolver().query(DBProvider.TERM_URI, DBOpener.TERM_COLUMNS,
+                null, null, "ASC");
+
+        try {
+            while (cursor.moveToNext()) {
+                String title = cursor.getString(cursor.getColumnIndex(DBOpener.TERM_TITLE));
+                String start = cursor.getString(cursor.getColumnIndex(DBOpener.TERM_START));
+                String end = cursor.getString(cursor.getColumnIndex(DBOpener.TERM_END));
+                long id = cursor.getLong(cursor.getColumnIndex(DBOpener.TERM_ID));
+                Term toAdd = new Term(title, start, end, id);
+                allTerms.add(toAdd);
+            }
+        }
+        finally{
+            cursor.close();
+        }
     }
 
 }
