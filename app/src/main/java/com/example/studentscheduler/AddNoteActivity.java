@@ -17,7 +17,7 @@ public class AddNoteActivity extends AppCompatActivity {
 
     public void addBtnClicked(View view) {
         String note = noteField.getText().toString();
-        long id = 0; //CHANGE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        long id = getIntent().getLongExtra("COURSE_ID", -1);
 
         DBDriver.insertNote(this, note, id);
         finish();

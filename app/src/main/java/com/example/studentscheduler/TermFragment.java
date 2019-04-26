@@ -3,8 +3,6 @@ package com.example.studentscheduler;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +68,10 @@ public class TermFragment extends Fragment {
                     startActivityForResult(intent, MainActivity.ADD_COURSE_CODE);
                 }
                 else{
-                    //Open Course view activity
+                    Intent intent = new Intent(v.getContext(), ViewCourseActivity.class);
+                    Course c = (Course)listView.getItemAtPosition(position);
+                    intent.putExtra("COURSE_ID", c.getId());
+                    startActivityForResult(intent, MainActivity.VIEW_COURSE_CODE);
                 }
             }
         });

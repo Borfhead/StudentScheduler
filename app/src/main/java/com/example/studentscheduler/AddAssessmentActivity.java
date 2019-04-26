@@ -62,7 +62,7 @@ public class AddAssessmentActivity extends AppCompatActivity {
         String title = titleField.getText().toString();
         String dueDate = dueDateField.getText().toString();
         AssessmentType type = AssessmentType.OBJECTIVE;
-        long id = 0; // CHANGE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        long id = getIntent().getLongExtra("COURSE_ID", -1);
         switch(typeSpinner.getSelectedItemPosition()){
             case 0:
                 type = AssessmentType.OBJECTIVE;

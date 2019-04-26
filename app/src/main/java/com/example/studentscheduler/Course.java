@@ -39,8 +39,19 @@ public class Course {
     private String mentorName;
     private String mentorPhone;
     private String mentorEmail;
-    private ArrayList<String> notes;
-    private ArrayList<Assessment> assessments;
+    private long id;
+
+    public Course(){
+        title = "";
+        start = "";
+        end = "";
+        status = Status.DROPPED;
+        mentorName = "";
+        mentorPhone = "";
+        mentorEmail = "";
+        id = -1;
+
+    }
 
     public Course(String title){
         this.title = title;
@@ -50,10 +61,11 @@ public class Course {
         mentorName = "";
         mentorPhone = "";
         mentorEmail = "";
+        id = -1;
     }
 
     public Course(String title, String start, String end, Status status,
-                  String mentorName, String mentorPhone, String mentorEmail, ArrayList<String> notes, ArrayList<Assessment> assessments){
+                  String mentorName, String mentorPhone, String mentorEmail, long id){
         this.title = title;
         this.start = start;
         this.end = end;
@@ -61,23 +73,11 @@ public class Course {
         this.mentorName = mentorName;
         this.mentorPhone = mentorPhone;
         this.mentorEmail = mentorEmail;
-        this.notes = notes;
-        this.assessments = assessments;
-    }
-
-    public Course(String title, String start, String end, Status status,
-                  String mentorName, String mentorPhone, String mentorEmail){
-        this.title = title;
-        this.start = start;
-        this.end = end;
-        this.status = status;
-        this.mentorName = mentorName;
-        this.mentorPhone = mentorPhone;
-        this.mentorEmail = mentorEmail;
+        this.id = id;
     }
 
     public Course(String title, String start, String end, String status,
-                  String mentorName, String mentorPhone, String mentorEmail){
+                  String mentorName, String mentorPhone, String mentorEmail, long id){
         this.title = title;
         this.start = start;
         this.end = end;
@@ -85,6 +85,7 @@ public class Course {
         this.mentorPhone = mentorPhone;
         this.mentorEmail = mentorEmail;
         this.status = Status.getStatusFromString(status);
+        this.id = id;
     }
     @Override
     public String toString(){
@@ -119,14 +120,6 @@ public class Course {
         return mentorEmail;
     }
 
-    public ArrayList<String> getNotes() {
-        return notes;
-    }
-
-    public ArrayList<Assessment> getAssessments() {
-        return assessments;
-    }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -155,17 +148,12 @@ public class Course {
         this.mentorEmail = mentorEmail;
     }
 
-    public void setNotes(ArrayList<String> notes) {
-        this.notes = notes;
+
+    public long getId() {
+        return id;
     }
 
-    public void setAssessments(ArrayList<Assessment> assessments) {
-        this.assessments = assessments;
+    public void setId(long id) {
+        this.id = id;
     }
-
-    public void addAssessment(Assessment toAdd){
-        assessments.add(toAdd);
-    }
-
-
 }
