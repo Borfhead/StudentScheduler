@@ -48,26 +48,4 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Schedule");
     }
 
-
-//    Used for testing
-//    public void addTerm(View view) {
-//        Intent intent = new Intent(this, AddTermActivity.class);
-//        startActivityForResult(intent, ADD_TERM_CODE);
-//    }
-//
-//    public void addCourse(View view) {
-//        Intent intent = new Intent(this, AddCourseActivity.class);
-//        startActivityForResult(intent, ADD_COURSE_CODE);
-//    }
-//
-//    public void addAssessment(View view) {
-//        Intent intent = new Intent(this, AddAssessmentActivity.class);
-//        startActivityForResult(intent, ADD_ASSESSMENT_CODE);
-//    }
-//
-//    public void addNote(View view) {
-//        Intent intent = new Intent(this, AddNoteActivity.class);
-//        startActivityForResult(intent, ADD_NOTE_CODE);
-//    }
-
 }
