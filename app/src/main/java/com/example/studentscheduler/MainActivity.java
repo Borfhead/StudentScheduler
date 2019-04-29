@@ -17,6 +17,11 @@ public class MainActivity extends AppCompatActivity {
     public static final int ADD_ASSESSMENT_CODE = 1003;
     public static final int ADD_NOTE_CODE = 1004;
     public static final int VIEW_COURSE_CODE = 1005;
+    public static final int EDIT_TERM_CODE = 1006;
+    public static final int EDIT_COURSE_CODE = 1007;
+    public static final int EDIT_NOTE_CODE = 1008;
+    public static final int EDIT_ASSESSMENT_CODE = 1009;
+
     private ViewPager pager;
     TermCollectionPagerAdapter adapter;
 

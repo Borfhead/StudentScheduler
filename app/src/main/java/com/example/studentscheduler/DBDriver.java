@@ -21,6 +21,16 @@ public class DBDriver {
         return context.getContentResolver().insert(DBProvider.ASSESSMENT_URI, values);
     }
 
+    public static int updateAssessment(Context context, String title, String dueDate,
+                                       AssessmentType type, long assessmentId){
+        ContentValues values = new ContentValues();
+        values.put(DBOpener.ASSESSMENT_TITLE, title);
+        values.put(DBOpener.ASSESSMENT_DUE_DATE, dueDate);
+        values.put(DBOpener.ASSESSMENT_TYPE, type.name());
+        return context.getContentResolver().update(DBProvider.ASSESSMENT_URI, values,
+                DBOpener.ASSESSMENT_ID + " = " + assessmentId, null);
+    }
+
     public static ArrayList<Assessment> getAssessmentByCourse(Context context ,long courseId){
         ArrayList<Assessment> toReturn = new ArrayList<>();
         Cursor cursor;
@@ -101,12 +111,34 @@ public class DBDriver {
         return toReturn;
     }
 
+    public static int updateCourse(Context context, long courseId, String title, String start, String end,
+                                   Status status, String mentorName, String mentorPhone,
+                                   String mentorEmail){
+        ContentValues values = new ContentValues();
+        values.put(DBOpener.COURSE_TITLE, title);
+        values.put(DBOpener.COURSE_START, start);
+        values.put(DBOpener.COURSE_END, end);
+        values.put(DBOpener.COURSE_STATUS, status.name());
+        values.put(DBOpener.COURSE_MENTOR_NAME, mentorName);
+        values.put(DBOpener.COURSE_MENTOR_PHONE, mentorPhone);
+        values.put(DBOpener.COURSE_MENTOR_EMAIL, mentorEmail);
+        return context.getContentResolver().update(DBProvider.COURSE_URI, values,
+                DBOpener.COURSE_ID + " = " + courseId, null);
+    }
+
     public static Uri insertNote(Context context, String text, long courseId){
 
         ContentValues values = new ContentValues();
         values.put(DBOpener.NOTE_TEXT, text);
         values.put(DBOpener.NOTE_COURSE_ID, courseId);
         return context.getContentResolver().insert(DBProvider.NOTE_URI, values);
+    }
+
+    public static int updateNote(Context context, String text, long noteId){
+        ContentValues values = new ContentValues();
+        values.put(DBOpener.NOTE_TEXT, text);
+        return context.getContentResolver().update(DBProvider.NOTE_URI, values,
+                DBOpener.NOTE_ID + " = " + noteId, null);
     }
 
     public static ArrayList<Note> getNotesByCourse(Context context, long courseId){
@@ -149,6 +181,15 @@ public class DBDriver {
             toReturn = new Term(title, start, end, id);
         }
         return toReturn;
+    }
+
+    public static int updateTerm(Context context, String title, String start, String end, long id){
+        ContentValues values = new ContentValues();
+        values.put(DBOpener.TERM_TITLE, title);
+        values.put(DBOpener.TERM_START, start);
+        values.put(DBOpener.TERM_END, end);
+        return context.getContentResolver().update(DBProvider.TERM_URI, values,
+                DBOpener.TERM_ID + " = " +id, null);
     }
 
     public static void populateAllTermsList(Context context){

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -51,6 +52,7 @@ public class TermFragment extends Fragment {
         TextView titleView = v.findViewById(R.id.titleField);
         TextView startView = v.findViewById(R.id.startField);
         TextView endView = v.findViewById(R.id.endField);
+        Button editBtn = v.findViewById(R.id.editBtn);
         titleView.setText(associatedTerm.getTitle());
         startView.setText(associatedTerm.getStart());
         endView.setText(associatedTerm.getEnd());
@@ -75,6 +77,21 @@ public class TermFragment extends Fragment {
                 }
             }
         });
+
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), EditTermActivity.class);
+                intent.putExtra("TERM_ID", associatedTerm.getId());
+                intent.putExtra("TERM_TITLE", associatedTerm.getTitle());
+                intent.putExtra("TERM_START", associatedTerm.getStart());
+                intent.putExtra("TERM_END", associatedTerm.getEnd());
+                startActivityForResult(intent, MainActivity.EDIT_TERM_CODE);
+            }
+        });
+
+
+
         return v;
     }
 }

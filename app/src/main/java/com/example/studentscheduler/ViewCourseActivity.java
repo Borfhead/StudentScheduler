@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ public class ViewCourseActivity extends AppCompatActivity {
     TextView nameField;
     TextView emailField;
     TextView phoneField;
+    Button editBtn;
     ListView assessmentListView;
     ListView noteListView;
     ArrayList<Assessment> assessments;
@@ -62,6 +64,7 @@ public class ViewCourseActivity extends AppCompatActivity {
         nameField = findViewById(R.id.nameField);
         emailField = findViewById(R.id.emailField);
         phoneField = findViewById(R.id.phoneField);
+        editBtn = findViewById(R.id.editBtn);
         assessmentListView = findViewById(R.id.assessmentListView);
         noteListView = findViewById(R.id.notesListView);
 
@@ -96,15 +99,18 @@ public class ViewCourseActivity extends AppCompatActivity {
                     startActivityForResult(intent, MainActivity.ADD_ASSESSMENT_CODE);
                 }
                 else{
-//                    Intent intent = new Intent(this, ViewCourseActivity.class);
-//                    Course c = (Course)assessmentListView.getItemAtPosition(position);
-//                    intent.putExtra("COURSE_ID", c.getId());
-//                    startActivityForResult(intent, MainActivity.VIEW_COURSE_CODE);
+//                    Open Assessment edit window
+                    Intent intent = new Intent(ViewCourseActivity.this, EditAssessmentActivity.class);
+                    Assessment a = (Assessment)assessmentListView.getItemAtPosition(position);
+                    intent.putExtra("ASSESSMENT_ID", a.getId());
+                    intent.putExtra("ASSESSMENT_TITLE", a.getTitle());
+                    intent.putExtra("ASSESSMENT_DUE_DATE", a.getDueDate());
+                    intent.putExtra("ASSESSMENT_TYPE", a.type.name());
+                    startActivityForResult(intent, MainActivity.EDIT_ASSESSMENT_CODE);
+
                 }
             }
         });
-
-
 
         ArrayAdapter<Note> noteAdapter = new ArrayAdapter<Note>(this,
                 android.R.layout.simple_list_item_1, notes);
@@ -118,10 +124,12 @@ public class ViewCourseActivity extends AppCompatActivity {
                     startActivityForResult(intent, MainActivity.ADD_NOTE_CODE);
                 }
                 else{
-//                    Intent intent = new Intent(this, ViewCourseActivity.class);
-//                    Course c = (Course)assessmentListView.getItemAtPosition(position);
-//                    intent.putExtra("COURSE_ID", c.getId());
-//                    startActivityForResult(intent, MainActivity.VIEW_COURSE_CODE);
+//                    Open note edit window
+                    Intent intent = new Intent(ViewCourseActivity.this, EditNoteActivity.class);
+                    Note n = (Note)noteListView.getItemAtPosition(position);
+                    intent.putExtra("NOTE_ID", n.getId());
+                    intent.putExtra("NOTE_TEXT", n.getNoteText());
+                    startActivityForResult(intent, MainActivity.EDIT_NOTE_CODE);
                 }
             }
         });
@@ -145,6 +153,18 @@ public class ViewCourseActivity extends AppCompatActivity {
         params.height = height + (listView.getDividerHeight() * (adapter.getCount() - 1));
         listView.setLayoutParams(params);
         listView.requestLayout();
+    }
 
+    public void openEditWindow(View view) {
+        Intent intent = new Intent(this, EditCourseActivity.class);
+        intent.putExtra("COURSE_ID", associatedCourse.getId());
+        intent.putExtra("COURSE_TITLE", associatedCourse.getTitle());
+        intent.putExtra("COURSE_START", associatedCourse.getStart());
+        intent.putExtra("COURSE_END", associatedCourse.getEnd());
+        intent.putExtra("MENTOR_NAME", associatedCourse.getMentorName());
+        intent.putExtra("MENTOR_EMAIL", associatedCourse.getMentorEmail());
+        intent.putExtra("MENTOR_PHONE", associatedCourse.getMentorPhone());
+        intent.putExtra("COURSE_STATUS", associatedCourse.getStatus().name());
+        startActivityForResult(intent, MainActivity.EDIT_COURSE_CODE);
     }
 }
