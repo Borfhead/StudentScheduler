@@ -3,6 +3,7 @@ package com.example.studentscheduler;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -10,9 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.facebook.stetho.common.ListUtil;
+//import com.facebook.stetho.common.ListUtil;
 
 import java.util.ArrayList;
 
@@ -117,19 +119,41 @@ public class ViewCourseActivity extends AppCompatActivity {
         noteListView.setAdapter(noteAdapter);
         noteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 if(noteListView.getItemAtPosition(position).toString().equals("Add Note")){
                     Intent intent = new Intent(ViewCourseActivity.this, AddNoteActivity.class);
                     intent.putExtra("COURSE_ID", courseId);
                     startActivityForResult(intent, MainActivity.ADD_NOTE_CODE);
                 }
                 else{
-//                    Open note edit window
-                    Intent intent = new Intent(ViewCourseActivity.this, EditNoteActivity.class);
-                    Note n = (Note)noteListView.getItemAtPosition(position);
-                    intent.putExtra("NOTE_ID", n.getId());
-                    intent.putExtra("NOTE_TEXT", n.getNoteText());
-                    startActivityForResult(intent, MainActivity.EDIT_NOTE_CODE);
+                    PopupMenu menu = new PopupMenu(ViewCourseActivity.this, view);
+                    menu.getMenuInflater().inflate(R.menu.menu_note, menu.getMenu());
+                    menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch(item.getTitle().toString()){
+                                case "Edit":
+//                                    Open note edit window
+                                    Intent intent = new Intent(ViewCourseActivity.this, EditNoteActivity.class);
+                                    Note n = (Note)noteListView.getItemAtPosition(position);
+                                    intent.putExtra("NOTE_ID", n.getId());
+                                    intent.putExtra("NOTE_TEXT", n.getNoteText());
+                                    startActivityForResult(intent, MainActivity.EDIT_NOTE_CODE);
+                                    break;
+                                case "Share":
+                                    //Share note
+                                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                                    shareIntent.setType("text/plain");
+                                    Note toSend = (Note)noteListView.getItemAtPosition(position);
+                                    shareIntent.putExtra(Intent.EXTRA_TEXT, toSend.getNoteText());
+                                    startActivity(Intent.createChooser(shareIntent, "Share Note"));
+                                    break;
+                            }
+                            return true;
+                        }
+                    });
+
+                    menu.show();
                 }
             }
         });
