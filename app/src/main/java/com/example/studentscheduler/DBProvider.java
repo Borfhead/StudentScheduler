@@ -124,7 +124,6 @@ public class DBProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-
         switch(uriMatcher.match(uri)){
             case ASSESSMENT:
                 return database.delete(DBOpener.ASSESSMENT_TABLE, selection, selectionArgs);

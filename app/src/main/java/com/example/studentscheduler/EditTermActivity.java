@@ -1,7 +1,9 @@
 package com.example.studentscheduler;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.DatePicker;
@@ -85,5 +87,38 @@ public class EditTermActivity extends AppCompatActivity {
         }
         DBDriver.updateTerm(this, title, start, end, getIntent().getLongExtra("TERM_ID", -1));
         finish();
+    }
+
+    public void deleteBtnClicked(View view) {
+        if(DBDriver.getCoursesByTerm(this, getIntent().getLongExtra("TERM_ID", -1)).isEmpty()){
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if(which == DialogInterface.BUTTON_POSITIVE){
+                        DBDriver.deleteTerm(EditTermActivity.this,
+                                getIntent().getLongExtra("TERM_ID", -1));
+                        finish();
+                    }
+                }
+            };
+            alert.setMessage("Are you sure you want to delete?");
+            alert.setPositiveButton("Yes", listener);
+            alert.setNegativeButton("No", listener);
+            alert.show();
+        }
+        else{
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            };
+            alert.setMessage("Remove courses from term before deleting.");
+            alert.setNeutralButton("Ok", listener);
+            alert.show();
+        }
+
     }
 }

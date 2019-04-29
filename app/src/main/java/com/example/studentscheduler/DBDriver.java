@@ -52,6 +52,11 @@ public class DBDriver {
         return toReturn;
     }
 
+    public static int deleteAssessment(Context context, long assessmentId){
+        return context.getContentResolver().delete(DBProvider.ASSESSMENT_URI,
+                DBOpener.ASSESSMENT_ID + " = " +assessmentId, null);
+    }
+
     public static Uri insertCourse(Context context, String title, String start, String end,
                                    Status status, String mentorName, String mentorPhone,
                                    String mentorEmail, long termId){
@@ -126,6 +131,11 @@ public class DBDriver {
                 DBOpener.COURSE_ID + " = " + courseId, null);
     }
 
+    public static int deleteCourse(Context context, long courseId){
+        return context.getContentResolver().delete(DBProvider.COURSE_URI,
+                DBOpener.COURSE_ID + " = " +courseId, null);
+    }
+
     public static Uri insertNote(Context context, String text, long courseId){
 
         ContentValues values = new ContentValues();
@@ -140,6 +150,13 @@ public class DBDriver {
         return context.getContentResolver().update(DBProvider.NOTE_URI, values,
                 DBOpener.NOTE_ID + " = " + noteId, null);
     }
+
+    public static int deleteNote(Context context, long noteId){
+        return context.getContentResolver().delete(DBProvider.NOTE_URI,
+                DBOpener.NOTE_ID + " = " +noteId, null);
+    }
+
+
 
     public static ArrayList<Note> getNotesByCourse(Context context, long courseId){
         ArrayList<Note> toReturn = new ArrayList();
@@ -190,6 +207,11 @@ public class DBDriver {
         values.put(DBOpener.TERM_END, end);
         return context.getContentResolver().update(DBProvider.TERM_URI, values,
                 DBOpener.TERM_ID + " = " +id, null);
+    }
+
+    public static int deleteTerm(Context context, long termId){
+        return context.getContentResolver().delete(DBProvider.TERM_URI,
+                DBOpener.TERM_ID + " = " +termId, null);
     }
 
     public static void populateAllTermsList(Context context){

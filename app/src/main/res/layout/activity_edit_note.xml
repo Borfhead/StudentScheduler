@@ -11,8 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:onClick="addBtnClicked"
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,5 +34,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/deleteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@android:color/holo_red_light"
+        android:text="Delete"
+        android:textColor="@android:color/white"
+        android:onClick="deleteBtnClicked"
+        app:layout_constraintEnd_toStartOf="@+id/addNoteBtn"
+        app:layout_constraintTop_toBottomOf="@+id/noteField" />
 
 </android.support.constraint.ConstraintLayout>

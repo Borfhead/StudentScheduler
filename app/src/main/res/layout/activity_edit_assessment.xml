@@ -72,4 +72,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dueDateField" />
 
+    <Button
+        android:id="@+id/deleteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@android:color/holo_red_light"
+        android:onClick="deleteBtnClicked"
+        android:text="Delete"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toStartOf="@+id/addAssessmentBtn"
+        app:layout_constraintTop_toBottomOf="@+id/typeSpinner" />
+
 </android.support.constraint.ConstraintLayout>
