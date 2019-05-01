@@ -112,7 +112,7 @@ public class EditCourseActivity extends AppCompatActivity {
     }
 
     public void addBtnClicked(View view) {
-        Status courseStatus = Status.PLAN_TO_TAKE;
+        Status courseStatus = null;
         String title = titleField.getText().toString();
         String start = startField.getText().toString();
         String end = endField.getText().toString();
@@ -125,6 +125,7 @@ public class EditCourseActivity extends AppCompatActivity {
                 courseStatus = Status.PLAN_TO_TAKE;
                 break;
             case 1:
+                System.out.println("In prog");
                 courseStatus = Status.IN_PROGESS;
                 break;
             case 2:

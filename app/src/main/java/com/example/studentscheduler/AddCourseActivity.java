@@ -1,6 +1,11 @@
 package com.example.studentscheduler;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,10 +16,12 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class AddCourseActivity extends AppCompatActivity {
 
+    Receiver receiver;
     TextView titleField;
     TextView startField;
     TextView endField;
@@ -24,11 +31,14 @@ public class AddCourseActivity extends AppCompatActivity {
     final Calendar calendar = Calendar.getInstance();
     int field = 1;
     Spinner statusSpinner;
+    static int requestCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_course);
         setTitle("Add Course");
+
+        receiver = new Receiver();
 
         titleField = findViewById(R.id.titleField);
         startField = findViewById(R.id.startField);
@@ -87,6 +97,8 @@ public class AddCourseActivity extends AppCompatActivity {
     }
 
     public void addBtnClicked(View view) {
+        Date startDate = null;
+        Date endDate = null;
         Status courseStatus = Status.PLAN_TO_TAKE;
         String title = titleField.getText().toString();
         String start = startField.getText().toString();
@@ -111,6 +123,39 @@ public class AddCourseActivity extends AppCompatActivity {
         }
         DBDriver.insertCourse(this, title, start, end, courseStatus, mentorName, mentorPhone,
                 mentorEmail, id);
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+        try{
+            startDate = format.parse(start);
+            setNotification(startDate.getTime(), "COURSE_START");
+        } catch(Exception e){
+            System.out.println("Couldn't parse date");
+        }
+        try{
+            endDate = format.parse(end);
+            setNotification(endDate.getTime(), "COURSE_END");
+        } catch(Exception e){
+            System.out.println("Couldn't parse date");
+        }
         finish();
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        try{
+            unregisterReceiver(receiver);
+        }catch(IllegalArgumentException e){
+            System.out.println("Couldn't unregister receiver");
+        }
+    }
+
+    private void setNotification(long millis, String notificationType){
+        IntentFilter filter = new IntentFilter("studentscheduler.action");
+        registerReceiver(receiver, filter);
+        AlarmManager alarms = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(AddCourseActivity.this, Receiver.class);
+        intent.putExtra("NOTIFICATION_TYPE", notificationType);
+        PendingIntent pendingStart = PendingIntent.getBroadcast(this, requestCode++, intent, 0);
+        alarms.set(AlarmManager.RTC_WAKEUP, millis, pendingStart);
     }
 }

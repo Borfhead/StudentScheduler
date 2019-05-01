@@ -44,6 +44,11 @@
             android:name=".DBProvider"
             android:authorities="com.example.studentscheduler.dbprovider"
             android:exported="false" />
+        <receiver android:name=".Receiver">
+            <intent-filter>
+                <action android:name="studentscheduler.action"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
